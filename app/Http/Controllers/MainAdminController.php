@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MainAdminController extends Controller
 {
@@ -39,5 +40,23 @@ class MainAdminController extends Controller
         );
 
         return redirect()->route('admin.profile')->with($notification);
+    }
+
+    public function PasswordChange(){
+        return view('admin.password.edit_password');
+    }
+
+    public function PasswordStore(Request $request){
+        $hasPassword = Admin::find(1)->password;
+        if(Hash::check($request->oldpassword, $hasPassword)){
+            $user = Admin::find(1);
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Auth::logout();
+            return redirect()->route('admin.logout');
+
+        }else{
+            return redirect()->back();
+        }
     }
 }

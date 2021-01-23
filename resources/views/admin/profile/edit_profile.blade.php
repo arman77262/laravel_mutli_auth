@@ -6,7 +6,7 @@
 <div class="row" style="padding: 30px">
     <div class="col-sm-6" style="padding: 30px; background-color:lightgray">
 
-<form method="POST" action="{{route('profile.store')}}" enctype="multipart/form-data">
+<form method="POST" action="{{route('admin.profile.store')}}" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">User Name</label>
